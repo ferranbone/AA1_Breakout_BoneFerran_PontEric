@@ -1,23 +1,33 @@
 #include "MenuScene.h"
+#include <iostream>
+#include <windows.h>
 
 void MenuScene::Update()
 {
-	if (GetAsyncKeyState('1') != 0) {
-		nextScene = "Ranking"; //Selects the next scene 
-		finished = true; //Indicates that this scene is finished
-	}
-	else if (GetAsyncKeyState('2') != 0) {
-		nextScene = "Gameplay";
-		finished = true;
-
-	}
-	else if (GetAsyncKeyState('3') != 0) {
-		nextScene = "Exit";
-		finished = true;
-	}
+    if (GetAsyncKeyState('1') & 0x8000) {
+        nextScene = "Gameplay";
+        finished = true;
+    }
+    else if (GetAsyncKeyState('2') & 0x8000) {
+        nextScene = "Ranking";
+        finished = true;
+    }
+    else if (GetAsyncKeyState('3') & 0x8000) {
+        nextScene = "Credits";
+        finished = true;
+    }
+    else if (GetAsyncKeyState('0') & 0x8000) {
+        nextScene = "Exit";
+        finished = true;
+    }
 }
 
 void MenuScene::Render()
 {
-	std::cout << "Press 1 for Ranking and 2 for Gameplay";
+    system("cls"); // Neteja la pantalla (només Windows)
+    std::cout << "===== MAIN MENU =====\n";
+    std::cout << "1. Play\n";
+    std::cout << "2. Ranking\n";
+    std::cout << "3. Credits\n";
+    std::cout << "0. Exit\n";
 }
