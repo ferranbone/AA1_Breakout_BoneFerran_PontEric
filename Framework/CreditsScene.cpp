@@ -9,5 +9,7 @@ void CreditsScene::Update()
 
 void CreditsScene::Render()
 {
+	std::cout << "JOC CREAT PER:" << std::endl;
+	std::cout << "Ferran Bone & Eric Pont" << std::endl << std::endl << std::endl;
 	std::cout << "Press R to go back to the menu;";
 }
