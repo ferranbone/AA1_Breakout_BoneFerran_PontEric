@@ -1,12 +1,12 @@
 #include "Pad.h"
 
 void Pad::Update(){
-	if (GetAsyncKeyState('A') != 0) {
+	if (GetAsyncKeyState('A') != 0 || GetAsyncKeyState(VK_LEFT) != 0) {
 		bool isOutside = position.x - width <= 1;
 		if(!isOutside)
 			position.x--;
 	}
-	if (GetAsyncKeyState('D') != 0) {
+	if (GetAsyncKeyState('D') != 0 || GetAsyncKeyState(VK_RIGHT) != 0) {
 		bool isOutside = position.x + width >= mapSize - 2;
 		if (!isOutside)
 			position.x++;

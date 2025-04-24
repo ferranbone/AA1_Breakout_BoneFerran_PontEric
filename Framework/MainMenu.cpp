@@ -4,19 +4,19 @@
 
 void MenuScene::Update()
 {
-    if (GetAsyncKeyState('1') & 0x8000) {
+    if (GetAsyncKeyState('1') != 0) {
         nextScene = "Gameplay";
         finished = true;
     }
-    else if (GetAsyncKeyState('2') & 0x8000) {
+    else if (GetAsyncKeyState('2') != 0) {
         nextScene = "Ranking";
         finished = true;
     }
-    else if (GetAsyncKeyState('3') & 0x8000) {
+    else if (GetAsyncKeyState('3') != 0) {
         nextScene = "Credits";
         finished = true;
     }
-    else if (GetAsyncKeyState('0') & 0x8000) {
+    else if (GetAsyncKeyState('0') != 0) {
         nextScene = "Exit";
         finished = true;
     }
