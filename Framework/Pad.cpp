@@ -1,6 +1,6 @@
 #include "Pad.h"
 
-void Pad::Update(){
+void Pad::Update(){ //Deja mover la pala con A, D y con las flechas
 	if (GetAsyncKeyState('A') != 0 || GetAsyncKeyState(VK_LEFT) != 0) {
 		bool isOutside = position.x - width <= 1;
 		if(!isOutside)

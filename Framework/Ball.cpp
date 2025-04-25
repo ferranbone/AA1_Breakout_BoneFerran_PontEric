@@ -37,11 +37,13 @@ Vector2 Ball::CalculateCollision( GameObject* other)
 void Ball::Update() {
 	position = position + direction;
 
+	//Si la pelota toca la pared de abajo, pierde una vida
 	int paredInferiorY = 14;
 	if (position.y >= paredInferiorY) {
 		gameManager.PerderVida();
 	}
 
+	//Detecta colisiones
 	for (auto i = objects.begin(); i != objects.end();) {
 		GameObject* go = *i;
 
@@ -50,6 +52,7 @@ void Ball::Update() {
 			continue;
 		}
 
+		//Verifica si la bola colisiona
 		if (position == go->GetPosition()) {
 			// Pared
 			if (Wall* wall = dynamic_cast<Wall*>(go)) {
@@ -58,6 +61,7 @@ void Ball::Update() {
 				continue;
 			}
 			// Brick
+			//Si es un ladrillo, lo rompe, aumenta el combo y suma puntos
 			else if (Brick* brick = dynamic_cast<Brick*>(go)) {
 				direction = CalculateCollision(go);
 				brick->Destroy();
@@ -75,6 +79,7 @@ void Ball::Update() {
 			}
 		}
 		// Pala
+		//Verifica si la bola colisiona con la pala
 		if (Pad* pala = dynamic_cast<Pad*>(go)) {
 			
 			std::vector<Vector2> posicionesPala = pala->ObtenerPosiciones();
@@ -85,15 +90,16 @@ void Ball::Update() {
 					int desplazamiento = posPala.x - pala->GetPosition().x;
 
 					if (desplazamiento < 0) {
-						direction.x = -1;
+						direction.x = -1; //Si toca el lado izquierdo de la pala rebota hacia la izquierda
 					}
 					else if (desplazamiento > 0) {
-						direction.x = 1;
+						direction.x = 1; //Si toca el lado derecho de la pala rebota hacia la derecha
 					}
 					else {
-						direction.x = 0;
+						direction.x = 0; //Si toca el centro de la pala rebota recto
 					}
 
+					//Hace rebotar la pelota hacia arriba
 					direction.y = -1;
 					break;
 				}

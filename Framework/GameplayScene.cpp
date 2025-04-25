@@ -42,6 +42,7 @@ void GameplayScene::Render()
 	int scoreX = 0;
 	int scoreY = MAP_SIZE - 0;
 
+	//Muestra la puntuacion, combo y vidas en pantalla
 	ConsoleXY(scoreX, scoreY);
 	std::cout << "Puntuacion: " << gameManager.ObtenerPuntuacion() << "  Combo: " << gameManager.ObtenerCombo() << std::endl;
 	std::cout << "Vidas: " << gameManager.ObtenerVidas() << std::endl;

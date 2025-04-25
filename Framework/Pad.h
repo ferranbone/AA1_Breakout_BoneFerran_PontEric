@@ -18,13 +18,15 @@ public:
 	void Render() override;
 	
 	std::vector<Vector2> ObtenerPosiciones() {
+		//Vector para almacenar las posiciones
 		std::vector<Vector2> posiciones;
 
 		for (int desplazamiento = -width; desplazamiento <= width; desplazamiento++) {
+			//Calcula la nueva posicion sumando el desplazamiento al centro del objeto
 			posiciones.push_back(position + Vector2(desplazamiento, 0));
 		}
 
-		return posiciones;
+		return posiciones; //Devuelve las posiciones generadas
 	}
 
 };
