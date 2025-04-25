@@ -1,4 +1,5 @@
 #include "Ball.h"
+GameManager gameManager;
 
 Vector2 Ball::CalculateCollision( GameObject* other)
 {
@@ -36,6 +37,11 @@ Vector2 Ball::CalculateCollision( GameObject* other)
 void Ball::Update() {
 	position = position + direction;
 
+	int paredInferiorY = 14;
+	if (position.y >= paredInferiorY) {
+		gameManager.PerderVida();
+	}
+
 	for (auto i = objects.begin(); i != objects.end();) {
 		GameObject* go = *i;
 
@@ -55,16 +61,27 @@ void Ball::Update() {
 			else if (Brick* brick = dynamic_cast<Brick*>(go)) {
 				direction = CalculateCollision(go);
 				brick->Destroy();
+				if (gameManager.ObtenerCombo() > 0) {
+					gameManager.SumarPuntosConCombo(15);
+				}
+				else {
+					gameManager.SumarPuntos(15);
+				}
+
+				gameManager.IncrementarCombo();
+
 				i = objects.erase(i);
 				continue;
 			}
 		}
 		// Pala
 		if (Pad* pala = dynamic_cast<Pad*>(go)) {
+			
 			std::vector<Vector2> posicionesPala = pala->ObtenerPosiciones();
 
 			for (const Vector2& posPala : posicionesPala) {
 				if (position == posPala) {
+					gameManager.ResetearCombo();
 					int desplazamiento = posPala.x - pala->GetPosition().x;
 
 					if (desplazamiento < 0) {

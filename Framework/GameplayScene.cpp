@@ -38,6 +38,13 @@ void GameplayScene::Update()
 void GameplayScene::Render()
 {
 	Scene::Render();
+
+	int scoreX = 0;
+	int scoreY = MAP_SIZE - 0;
+
+	ConsoleXY(scoreX, scoreY);
+	std::cout << "Puntuacion: " << gameManager.ObtenerPuntuacion() << "  Combo: " << gameManager.ObtenerCombo() << std::endl;
+	std::cout << "Vidas: " << gameManager.ObtenerVidas() << std::endl;
 }
 
 void GameplayScene::OnExit()

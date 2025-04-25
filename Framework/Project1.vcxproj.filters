@@ -98,5 +98,8 @@
     <ClInclude Include="CreditsScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Header Files\Objects\Gameplay</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

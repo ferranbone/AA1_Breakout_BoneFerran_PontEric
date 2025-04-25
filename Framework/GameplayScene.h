@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "GameManager.h"
 
 #include "Wall.h"
 #include "Brick.h"
