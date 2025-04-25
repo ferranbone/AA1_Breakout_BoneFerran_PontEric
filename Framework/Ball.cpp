@@ -33,28 +33,58 @@ Vector2 Ball::CalculateCollision( GameObject* other)
 	return outDir;
 }
 
-void Ball::Update()
-{
-	//1 -> Moviment
+void Ball::Update() {
 	position = position + direction;
-	//2 -> Col·lisió
-		//Parets
-		//Bricks
-		//Pad
-	for (GameObject* go : objects) {
+
+	for (auto i = objects.begin(); i != objects.end();) {
+		GameObject* go = *i;
+
 		if (go == this) {
+			++i;
 			continue;
 		}
-		bool collision = position == go->GetPosition();
-		if (collision) {
-			//Check if this is a wall
-			if (Wall* w = dynamic_cast<Wall*>(go)) {
+
+		if (position == go->GetPosition()) {
+			// Pared
+			if (Wall* wall = dynamic_cast<Wall*>(go)) {
 				direction = CalculateCollision(go);
+				++i;
+				continue;
 			}
+			// Brick
 			else if (Brick* brick = dynamic_cast<Brick*>(go)) {
 				direction = CalculateCollision(go);
 				brick->Destroy();
+				i = objects.erase(i);
+				continue;
 			}
 		}
+		// Pala
+		if (Pad* pala = dynamic_cast<Pad*>(go)) {
+			std::vector<Vector2> posicionesPala = pala->ObtenerPosiciones();
+
+			for (const Vector2& posPala : posicionesPala) {
+				if (position == posPala) {
+					int desplazamiento = posPala.x - pala->GetPosition().x;
+
+					if (desplazamiento < 0) {
+						direction.x = -1;
+					}
+					else if (desplazamiento > 0) {
+						direction.x = 1;
+					}
+					else {
+						direction.x = 0;
+					}
+
+					direction.y = -1;
+					break;
+				}
+			}
+		}
+
+
+		++i;
 	}
 }
+
