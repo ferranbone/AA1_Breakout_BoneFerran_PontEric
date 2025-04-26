@@ -17,9 +17,17 @@ void GameplayScene::OnEnter()
 	}
 
 	//Bricks
+	bool createBrick = false;
 	for (int i = 1; i <= 3; i++) {
 		for (int j = 1; j < MAP_SIZE - 1; j++) {
-			objects.push_back(new Brick(Vector2(j, i), CYAN));
+			if (createBrick) {
+				objects.push_back(new Brick(Vector2(j, i), CYAN));
+				createBrick = false;
+			}
+			else {
+				createBrick = true;
+			}
+			
 		}
 	}
 
