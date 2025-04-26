@@ -22,6 +22,7 @@ void GameplayScene::OnEnter()
 		for (int j = 1; j < MAP_SIZE - 1; j++) {
 			if (createBrick) {
 				objects.push_back(new Brick(Vector2(j, i), CYAN));
+				gameManager.AddBricksCounter();
 				createBrick = false;
 			}
 			else {
@@ -40,6 +41,9 @@ void GameplayScene::OnEnter()
 
 void GameplayScene::Update()
 {
+	if (gameManager.ObtainHp() == 0 || gameManager.ObtainBrickCounter() == 0) {
+		finished = true;
+	}
 	Scene::Update();
 }
 
@@ -52,8 +56,8 @@ void GameplayScene::Render()
 
 	//Muestra la puntuacion, combo y vidas en pantalla
 	ConsoleXY(scoreX, scoreY);
-	std::cout << "Puntuacion: " << gameManager.ObtenerPuntuacion() << "  Combo: " << gameManager.ObtenerCombo() << std::endl;
-	std::cout << "Vidas: " << gameManager.ObtenerVidas() << std::endl;
+	std::cout << "Score: " << gameManager.ObtainScore() << "  Combo: " << gameManager.ObtainCombo() << std::endl;
+	std::cout << "HP: " << gameManager.ObtainHp() << "   Bricks remaining: " << gameManager.ObtainBrickCounter() << std::endl;
 }
 
 void GameplayScene::OnExit()

@@ -17,16 +17,16 @@ public:
     void Update() override;
 	void Render() override;
 	
-	std::vector<Vector2> ObtenerPosiciones() {
+	std::vector<Vector2> ObtainPositions() {
 		//Vector para almacenar las posiciones
-		std::vector<Vector2> posiciones;
+		std::vector<Vector2> positions;
 
-		for (int desplazamiento = -width; desplazamiento <= width; desplazamiento++) {
+		for (int movement = -width; movement <= width; movement++) {
 			//Calcula la nueva posicion sumando el desplazamiento al centro del objeto
-			posiciones.push_back(position + Vector2(desplazamiento, 0));
+			positions.push_back(position + Vector2(movement, 0));
 		}
 
-		return posiciones; //Devuelve las posiciones generadas
+		return positions; //Devuelve las posiciones generadas
 	}
 
 };

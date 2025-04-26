@@ -40,7 +40,7 @@ void Ball::Update() {
 	//Si la pelota toca la pared de abajo, pierde una vida
 	int paredInferiorY = 14;
 	if (position.y >= paredInferiorY) {
-		gameManager.PerderVida();
+		gameManager.LoseHp();
 	}
 
 	//Detecta colisiones
@@ -65,14 +65,15 @@ void Ball::Update() {
 			else if (Brick* brick = dynamic_cast<Brick*>(go)) {
 				direction = CalculateCollision(go);
 				brick->Destroy();
-				if (gameManager.ObtenerCombo() > 0) {
-					gameManager.SumarPuntosConCombo(15);
+				gameManager.SubtractBricksCounter();
+				if (gameManager.ObtainCombo() > 0) {
+					gameManager.AddScoreWithCombo(15);
 				}
 				else {
-					gameManager.SumarPuntos(15);
+					gameManager.AddScore(15);
 				}
 
-				gameManager.IncrementarCombo();
+				gameManager.IncrementCombo();
 
 				i = objects.erase(i);
 				continue;
@@ -80,19 +81,19 @@ void Ball::Update() {
 		}
 		// Pala
 		//Verifica si la bola colisiona con la pala
-		if (Pad* pala = dynamic_cast<Pad*>(go)) {
+		if (Pad* pad = dynamic_cast<Pad*>(go)) {
 			
-			std::vector<Vector2> posicionesPala = pala->ObtenerPosiciones();
+			std::vector<Vector2> padPosition = pad->ObtainPositions();
 
-			for (const Vector2& posPala : posicionesPala) {
-				if (position == posPala) {
-					gameManager.ResetearCombo();
-					int desplazamiento = posPala.x - pala->GetPosition().x;
+			for (const Vector2& padPos : padPosition) {
+				if (position == padPos) {
+					gameManager.ResetCombo();
+					int movement = padPos.x - pad->GetPosition().x;
 
-					if (desplazamiento < 0) {
+					if (movement < 0) {
 						direction.x = -1; //Si toca el lado izquierdo de la pala rebota hacia la izquierda
 					}
-					else if (desplazamiento > 0) {
+					else if (movement > 0) {
 						direction.x = 1; //Si toca el lado derecho de la pala rebota hacia la derecha
 					}
 					else {

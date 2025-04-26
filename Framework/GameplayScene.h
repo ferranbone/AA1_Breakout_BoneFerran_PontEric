@@ -11,6 +11,9 @@
 
 class GameplayScene : public Scene {
 public:
+	GameplayScene() {
+		nextScene = "Menu";
+	}
 	virtual void OnEnter() override;
 	virtual void Update() override;
 	virtual void Render() override;

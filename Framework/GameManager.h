@@ -3,41 +3,56 @@
 
 class GameManager {
 public:
-	int puntuacion = 0; //Puntuación del jugador
-	int combo = 0; //Combo de los ladrillos
-	int vidas = 3; //Vidas del jugador
+	short score = 0; //Puntuación del jugador
+	short combo = 0; //Combo de los ladrillos
+	short hp = 3; //Vidas del jugador
+	short bricksCounter = 0;
 
-	void SumarPuntos(int cantidad) {
-		puntuacion += cantidad;
+	//SCORE
+	void AddScore(int quantity) {
+		score += quantity;
 	}
 	
-	void SumarPuntosConCombo(int cantidad) {
+	void AddScoreWithCombo(int quantity) {
 		int bonus = combo * 5; //Bonus de puntos de combo, cada combo suma 5 puntos extra
-		puntuacion += cantidad + bonus; //Puntos base mas los puntos extra del combo
+		score += quantity + bonus; //Puntos base mas los puntos extra del combo
 	}
 
-	int ObtenerPuntuacion() const {
-		return puntuacion; //Da la puntuacion actual
+	short ObtainScore() const {
+		return score; //Da la puntuacion actual
 	}
 
-	void ResetearCombo() {
+	//COMBO
+	void ResetCombo() {
 		combo = 0; //Vuelve a poner el combo en 0
 	}
 
-	void IncrementarCombo() {
+	void IncrementCombo() {
 		combo++; //Aumenta el combo actual
 	}
 
-	int ObtenerCombo() const {
+	short ObtainCombo() const {
 		return combo; //Da el combo actual
 	}
 
-	void PerderVida() {
-		vidas--; //Resta una vida
+	//HP
+	void LoseHp() {
+		hp--; //Resta una vida
 	}
 
-	int ObtenerVidas() const {
-		return vidas; //Da las vidas actuales
+	short ObtainHp() const {
+		return hp; //Da las vidas actuales
+	}
+
+	//BRICKS
+	void AddBricksCounter() {
+		bricksCounter++;
+	}
+	void SubtractBricksCounter() {
+		bricksCounter--;
+	}
+	short ObtainBrickCounter() {
+		return bricksCounter;
 	}
 };
 
