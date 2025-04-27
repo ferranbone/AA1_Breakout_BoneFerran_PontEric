@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include <fstream>
 
 class RankingScene : public Scene {
 protected:

@@ -1,4 +1,6 @@
 #pragma once
+#include <fstream>
+#include <algorithm>
 
 
 class GameManager {
@@ -8,6 +10,12 @@ public:
 	short hp = 3; //Vidas del jugador
 	short bricksCounter = 0;
 
+	void ResetGameManager(){
+		score = 0;
+		combo = 0;
+		hp = 3;
+		bricksCounter = 0;
+	}
 	//SCORE
 	void AddScore(int quantity) {
 		score += quantity;
